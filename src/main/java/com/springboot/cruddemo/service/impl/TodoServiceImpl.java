@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TodoServiceImpl implements TodoService {
 
@@ -65,6 +67,12 @@ public class TodoServiceImpl implements TodoService {
 
        // convert Todo jpa to TodoDto
         return modelMapper.map(todo, TodoDto.class);
+    }
+
+
+    @Override
+    public List<TodoDto> getAllTodos() {
+        return List.of();
     }
 
 }
