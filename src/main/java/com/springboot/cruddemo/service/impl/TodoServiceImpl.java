@@ -23,7 +23,7 @@ public class TodoServiceImpl implements TodoService {
 
         // convert TodoDto into Todo jpa entity
         Todo todo = new Todo();
-        todo.setTitle(todo.getTitle());
+        todo.setTitle(todoDto.getTitle());
         todo.setDescription(todoDto.getDescription());
         todo.setCompleted(todoDto.isCompleted());
 
