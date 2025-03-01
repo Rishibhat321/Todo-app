@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TodoServiceImpl implements TodoService {
@@ -72,7 +73,12 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<TodoDto> getAllTodos() {
-        return List.of();
+        List<Todo> todos = todoRepository.findAll();
+
+        // convert to list of TodoDtos
+
+        return todos.stream().map((todo) -> modelMapper.map(todo, TodoDto.class))
+                .collect(Collectors.toList());
     }
 
 }
