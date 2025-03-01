@@ -52,4 +52,15 @@ public class TodoServiceImpl implements TodoService {
         return savedTodoDto;
     }
 
+
+    @Override
+    public TodoDto getTodo(Long id) {
+
+        // retrieve from db
+       Todo todo =  todoRepository.findById(id).get();
+
+       // convert Todo jpa to TodoDto
+        return modelMapper.map(todo, TodoDto.class);
+    }
+
 }

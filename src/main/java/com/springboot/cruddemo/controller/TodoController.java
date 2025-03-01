@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/todos")
@@ -25,13 +22,21 @@ public class TodoController {
     }
 
     // Build Add Todo REST API
-
     @PostMapping
     public ResponseEntity<TodoDto> addTodo(@RequestBody TodoDto todoDto) {
 
         TodoDto savedTodo = todoService.addTodo(todoDto);
 
         return new ResponseEntity<>(savedTodo, HttpStatus.CREATED);
+    }
+
+
+    // Build Get TODO REST API
+    @GetMapping("{todoId}")
+    public ResponseEntity<TodoDto> getTodo(@PathVariable Long todoId) {
+        TodoDto todoDto = todoService.getTodo(todoId);
+
+        return new ResponseEntity<>(todoDto, HttpStatus.OK);
     }
 
 
