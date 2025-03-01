@@ -2,6 +2,7 @@ package com.springboot.cruddemo.service.impl;
 
 import com.springboot.cruddemo.dto.TodoDto;
 import com.springboot.cruddemo.entity.Todo;
+import com.springboot.cruddemo.exception.ResourceNotFoundException;
 import com.springboot.cruddemo.repository.TodoRepository;
 import com.springboot.cruddemo.service.TodoService;
 import org.modelmapper.ModelMapper;
@@ -57,7 +58,10 @@ public class TodoServiceImpl implements TodoService {
     public TodoDto getTodo(Long id) {
 
         // retrieve from db
-       Todo todo =  todoRepository.findById(id).get();
+    //   Todo todo =  todoRepository.findById(id).get();
+
+        Todo todo = todoRepository.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
 
        // convert Todo jpa to TodoDto
         return modelMapper.map(todo, TodoDto.class);
