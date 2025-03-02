@@ -127,4 +127,9 @@ public class TodoServiceImpl implements TodoService {
         return modelMapper.map(updatedTodo, TodoDto.class);
     }
 
+    @Override
+    public TodoDto inCompleteTodo(Long id) {
+        return null;
+    }
+
 }
