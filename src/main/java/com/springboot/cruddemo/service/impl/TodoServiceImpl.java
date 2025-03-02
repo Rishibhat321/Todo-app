@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.module.ResolutionException;
+import java.nio.file.ReadOnlyFileSystemException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -109,6 +110,21 @@ public class TodoServiceImpl implements TodoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id - " + id));
 
        todoRepository.deleteById(id);
+    }
+
+
+    @Override
+    public TodoDto completeTodo(Long id) {
+
+        // change the status of the todo object
+      Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id : " + id));
+
+      todo.setCompleted(Boolean.TRUE);
+
+       Todo updatedTodo =  todoRepository.save(todo);
+
+        return modelMapper.map(updatedTodo, TodoDto.class);
     }
 
 }
