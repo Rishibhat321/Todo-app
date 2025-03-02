@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.module.ResolutionException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,6 +99,16 @@ public class TodoServiceImpl implements TodoService {
       // convert updated jpa entity to todo dto
         return modelMapper.map(updatedTodo, TodoDto.class);
 
+    }
+
+
+    @Override
+    public void deleteTodo(Long id) {
+
+       Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id - " + id));
+
+       todoRepository.deleteById(id);
     }
 
 }
