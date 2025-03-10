@@ -26,7 +26,7 @@ public class SpringSecurityConfig {
 
         http.authorizeHttpRequests(configurer ->
                 configurer
-                        .requestMatchers(HttpMethod.POST, )
+                        .requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
         );
 
 
