@@ -46,7 +46,9 @@ public class TodoController {
         return new ResponseEntity<>(todoDto, HttpStatus.OK);
     }
 
+    // METHOD LEVEL SECURITY
     // Build Get All Todos REST API
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping
     public ResponseEntity<List<TodoDto>> getAllTodos() {
         List<TodoDto> todos = todoService.getAllTodos();
@@ -76,7 +78,9 @@ public class TodoController {
         return ResponseEntity.ok("Todo deleted successfully");
     }
 
+    // METHOD LEVEL SECURITY
     // Build complete Todo REST API
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("{id}/complete")
     public ResponseEntity<TodoDto> completeTodo(@PathVariable("id") Long todoId) {
 
@@ -85,7 +89,9 @@ public class TodoController {
       return ResponseEntity.ok(updatedTodo);
     }
 
+    // METHOD LEVEL SECURITY
     // Build In Complete Todo REST API
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("{id}/inComplete")
     public ResponseEntity<TodoDto> inCompleteTodo(@PathVariable("id") Long todoId) {
 
