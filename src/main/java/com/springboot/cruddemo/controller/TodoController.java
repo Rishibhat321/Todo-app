@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,9 @@ public class TodoController {
         this.todoService=todoService;
     }
 
+    // METHOD LEVEL SECURITY
     // Build Add Todo REST API
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TodoDto> addTodo(@RequestBody TodoDto todoDto) {
 
@@ -51,7 +54,9 @@ public class TodoController {
         return ResponseEntity.ok(todos);
     }
 
+    // METHOD LEVEL SECURITY
     // Build update Todo REST API
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<TodoDto> updateTodo(@RequestBody TodoDto todoDto, @PathVariable("id") Long id) {
        TodoDto updatedTodo =  todoService.updateTodo(todoDto, id);
@@ -59,7 +64,9 @@ public class TodoController {
        return ResponseEntity.ok(updatedTodo);
     }
 
+    // METHOD LEVEL SECURITY
     // Build Delete Todo REST API
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteTodo(@PathVariable("id") Long todoId) {
         todoService.deleteTodo(todoId);
