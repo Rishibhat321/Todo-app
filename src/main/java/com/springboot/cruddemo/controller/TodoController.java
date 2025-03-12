@@ -36,7 +36,9 @@ public class TodoController {
     }
 
 
+    // METHOD LEVEL SECURITY
     // Build Get TODO REST API
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("{todoId}")
     public ResponseEntity<TodoDto> getTodo(@PathVariable Long todoId) {
         TodoDto todoDto = todoService.getTodo(todoId);
